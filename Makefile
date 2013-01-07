@@ -5,16 +5,26 @@ JS_UGLIFY = $(NODE_PATH)/uglify-js/bin/uglifyjs
 JS_TESTER = $(NODE_PATH)/vows/bin/vows
 LOCALE ?= en_US
 
+# Supported module types are 'global' and 'amd'
+MODULE_TYPE ?= global
+
+ifneq ($(MODULE_TYPE), global)
+	MODULE_SUFFIX = -$(MODULE_TYPE)
+endif
+
+START = src/start$(MODULE_SUFFIX).js
+END = src/end$(MODULE_SUFFIX).js
+
 all: \
-	d3.js \
-	d3.min.js \
+	d3$(MODULE_SUFFIX).v2.js \
+	d3$(MODULE_SUFFIX).v2.min.js \
 	component.json \
 	package.json
 
 # Modify this rule to build your own custom release.
 
-.INTERMEDIATE d3.js: \
-	src/start.js \
+.INTERMEDIATE d3$(MODULE_SUFFIX).v2.js: \
+	$(START) \
 	d3.core.js \
 	d3.scale.js \
 	d3.svg.js \
@@ -24,7 +34,7 @@ all: \
 	d3.geo.js \
 	d3.geom.js \
 	d3.time.js \
-	src/end.js
+	$(END)
 
 d3.core.js: \
 	src/core/format-$(LOCALE).js \
