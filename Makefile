@@ -16,14 +16,14 @@ START = src/start$(MODULE_SUFFIX).js
 END = src/end$(MODULE_SUFFIX).js
 
 all: \
-	d3$(MODULE_SUFFIX).v2.js \
-	d3$(MODULE_SUFFIX).v2.min.js \
+	d3$(MODULE_SUFFIX).v3.js \
+	d3$(MODULE_SUFFIX).v3.min.js \
 	component.json \
 	package.json
 
 # Modify this rule to build your own custom release.
 
-.INTERMEDIATE d3$(MODULE_SUFFIX).v2.js: \
+.INTERMEDIATE d3$(MODULE_SUFFIX).v3.js: \
 	$(START) \
 	d3.core.js \
 	d3.scale.js \
